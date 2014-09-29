@@ -3,10 +3,6 @@ require 'net/https'
 require "payoneer/exception"
 
 class Payoneer
-  SANDBOX_API_URL = 'https://api.sandbox.payoneer.com/Payouts/HttpApi/API.aspx?'
-  PRODUCTION_API_URL = 'https://api.payoneer.com/payouts/HttpAPI/API.aspx?'
-  API_PORT = '443'
-
   def self.new_payee_link(partner_id, username, password, member_name)
     payoneer_api = self.new(partner_id, username, password)
     payoneer_api.payee_link(member_name)
@@ -123,8 +119,7 @@ class Payoneer
   end
 
   def api_url
-    PRODUCTION_API_URL
+    ENV['PAYONEER_API_URL']
   end
-
 end
 
