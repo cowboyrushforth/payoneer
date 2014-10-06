@@ -1,24 +1,27 @@
 require 'net/http'
 require 'net/https'
-require 'payoneer/exception'
 require 'logger'
+require 'nokogiri'
+require_relative 'payoneer/exception'
 
 class Payoneer
-  attr_writer :logger
+  class << self
+    attr_writer :logger
 
-  def self.new_payee_link(partner_id, username, password, member_name)
-    payoneer_api = self.new(partner_id, username, password)
-    payoneer_api.payee_link(member_name)
-  end
+    def new_payee_link(partner_id, username, password, member_name)
+      payoneer_api = self.new(partner_id, username, password)
+      payoneer_api.payee_link(member_name)
+    end
 
-  def self.transfer_funds(partner_id, username, password, options)
-    payoneer_api = self.new(partner_id, username, password)
-    payoneer_api.transfer_funds(options)
-  end
+    def transfer_funds(partner_id, username, password, options)
+      payoneer_api = self.new(partner_id, username, password)
+      payoneer_api.transfer_funds(options)
+    end
 
-  def self.payee_exists?(partner_id, username, password, payee_id)
-    payoneer_api = self.new(partner_id, username, password)
-    payoneer_api.payee_exists?(payee_id)
+    def payee_exists?(partner_id, username, password, payee_id)
+      payoneer_api = self.new(partner_id, username, password)
+      payoneer_api.payee_exists?(payee_id)
+    end
   end
 
   def initialize(partner_id, username, password)
@@ -53,7 +56,7 @@ class Payoneer
   end
 
   def is_xml?(body)
-    Nokogiri::XML(body).errors.empty?
+    Nokogiri::XML.parse(body).errors.empty?
   end
 
   def xml_response_result(body)
@@ -62,16 +65,18 @@ class Payoneer
   end
 
   def failure_api_response?(body)
-    body_hash = Hash.from_xml(body)
-    (body_hash["PayoneerResponse"] && body_hash["PayoneerResponse"]["Description"]) || (body_hash["GetPayeeDetails"] && body_hash["GetPayeeDetails"]["Error"])
+    xml = Nokogiri::XML.parse(body)
+    xml.xpath('//PayoneerResponse/Description').any? ||
+      xml.xpath('//GetPayeeDetails/Error').any?
   end
 
   def api_error_description(body)
-    body_hash = Hash.from_xml(body)
-    if body_hash["PayoneerResponse"]
-      body_hash["PayoneerResponse"]["Description"]
+    xml = Nokogiri::XML.parse(body)
+    error = xml.xpath('//PayoneerResponse/Description')
+    if error.any?
+      error.text
     else
-      body_hash["GetPayeeDetails"]["Error"]
+      xml.xpath('//GetPayeeDetails/Error').text
     end
   end
 

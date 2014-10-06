@@ -9,6 +9,10 @@ Gem::Specification.new do |s|
   s.files       = ['lib/payoneer.rb', 'lib/payoneer/exception.rb']
   s.homepage    = 'https://github.com/Mehonoshin/payoneer'
 
+  s.add_dependency 'nokogiri'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'vcr'
+  s.add_development_dependency 'webmock'
 end
+
