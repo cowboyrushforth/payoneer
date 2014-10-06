@@ -8,4 +8,6 @@ Gem::Specification.new do |s|
   s.email       = 'ejabberd@gmail.com'
   s.files       = ['lib/payoneer.rb', 'lib/payoneer/exception.rb']
   s.homepage    = 'https://github.com/Mehonoshin/payoneer'
+
+  s.add_development_dependency 'pry'
 end
