@@ -1,7 +1,7 @@
 ENV['PAYONEER_PARTNER_ID'] ||= 'payoneer-partner-id'
 ENV['PAYONEER_USERNAME'] ||= 'payoneer-username'
 ENV['PAYONEER_PASSWORD'] ||= 'payoneer-password'
-ENV['PAYONEER_API_URL'] ||= 'payoneer-api-url'
+ENV['PAYONEER_API_URL'] ||= 'https://payoneer-api-url'
 
 require 'vcr'
 require './lib/payoneer'
