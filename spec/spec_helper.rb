@@ -1,3 +1,8 @@
+ENV['PAYONEER_PARTNER_ID'] ||= 'payoneer-partner-id'
+ENV['PAYONEER_USERNAME'] ||= 'payoneer-username'
+ENV['PAYONEER_PASSWORD'] ||= 'payoneer-password'
+ENV['PAYONEER_API_URL'] ||= 'payoneer-api-url'
+
 require 'vcr'
 require './lib/payoneer'
 Dir['spec/support/*.rb'].each { |rb| require "./#{rb}" }
