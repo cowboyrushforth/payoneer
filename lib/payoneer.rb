@@ -30,9 +30,9 @@ class Payoneer
     @partner_id, @username, @password = partner_id, username, password
   end
 
-  def payee_link(member_name)
+  def payee_signup_link(member_name)
     @member_name = member_name
-    result = get_api_call(payee_link_args)
+    result = get_api_call(payee_signup_link_args)
     api_result(result)
   end
 
@@ -93,7 +93,7 @@ class Payoneer
     http.request(request).body
   end
 
-  def payee_link_args
+  def payee_signup_link_args
     {
       "mname" => "GetToken",
       "p1" => username,
