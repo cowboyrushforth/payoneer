@@ -10,4 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/Mehonoshin/payoneer'
 
   s.add_development_dependency 'pry'
+  s.add_development_dependency 'rspec'
 end
