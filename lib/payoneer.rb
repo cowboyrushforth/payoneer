@@ -5,6 +5,8 @@ require 'nokogiri'
 require_relative 'payoneer/exception'
 
 class Payoneer
+  attr_reader :username, :password, :partner_id, :member_name
+
   class << self
     attr_writer :logger
 
@@ -94,19 +96,19 @@ class Payoneer
   def payee_link_args
     {
       "mname" => "GetToken",
-      "p1" => @username,
-      "p2" => @password,
-      "p3" => @partner_id,
-      "p4" => @member_name
+      "p1" => username,
+      "p2" => password,
+      "p3" => partner_id,
+      "p4" => member_name
     }
   end
 
   def transfer_funds_args(options)
     {
       "mname" => "PerformPayoutPayment",
-      "p1" => @username,
-      "p2" => @password,
-      "p3" => @partner_id,
+      "p1" => username,
+      "p2" => password,
+      "p3" => partner_id,
       "p4" => options[:program_id],
       "p5" => options[:internal_payment_id],
       "p6" => options[:internal_payee_id],
@@ -119,9 +121,9 @@ class Payoneer
   def payee_exists_args(payee_id)
     {
       "mname" => "GetPayeeDetails",
-      "p1" => @username,
-      "p2" => @password,
-      "p3" => @partner_id,
+      "p1" => username,
+      "p2" => password,
+      "p3" => partner_id,
       "p4" => payee_id
     }
   end

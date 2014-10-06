@@ -1,10 +1,12 @@
 require 'vcr'
 require './lib/payoneer'
+Dir['spec/support/*.rb'].each { |rb| require "./#{rb}" }
 
 Payoneer.logger = Logger.new('./log/payoneer_test.log')
 Payoneer.logger.formatter = Logger::Formatter.new
 
 RSpec.configure do |config|
+  config.include PayoneerClient
 end
 
 VCR.configure do |c|

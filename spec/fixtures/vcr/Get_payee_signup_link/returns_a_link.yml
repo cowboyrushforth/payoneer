@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: payoneer-api-url?mname=GetToken&p1=payoneer-username&p2=payoneer-password&p3=payoneer-partner-id&p4=fox
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Content-Type:
+      - text/html; charset=utf-8
+      Expires:
+      - "-1"
+      Set-Cookie:
+      - ASP.NET_SessionId=dkbbueyuukfvaopnfmv4amml; domain=.sandbox.payoneer.com;
+        path=/; secure; HttpOnly
+      - pid=payoneer-partner-id; domain=.sandbox.payoneer.com; expires=Mon, 05-Oct-2015
+        11:25:14 GMT; path=/; secure
+      P3p:
+      - CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Mon, 06 Oct 2014 11:25:14 GMT
+      Content-Length:
+      - '101'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: http://payouts.sandbox.payoneer.com/partners/lp.aspx?token=1c447510fdc847d6a7ce706448cb10fe4DCE620A5A
+    http_version: 
+  recorded_at: Mon, 06 Oct 2014 11:25:14 GMT
+recorded_with: VCR 2.9.3
