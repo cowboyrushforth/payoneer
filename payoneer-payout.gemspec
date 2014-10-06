@@ -1,18 +1,23 @@
-Gem::Specification.new do |s|
-  s.name        = 'payoneer-payout'
-  s.version     = '0.0.1.3'
-  s.date        = '2013-05-30'
-  s.summary     = "Ruby wrapper for Payoneer API"
-  s.description = "Allows to transfer funds between redpass users"
-  s.authors     = ["Stanislav Mekhonoshin"]
-  s.email       = 'ejabberd@gmail.com'
-  s.files       = ['lib/payoneer.rb', 'lib/payoneer/exception.rb']
-  s.homepage    = 'https://github.com/Mehonoshin/payoneer'
+require_relative './lib/payoneer/version'
 
-  s.add_dependency 'nokogiri'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'vcr'
-  s.add_development_dependency 'webmock'
+Gem::Specification.new do |spec|
+  spec.name        = 'payoneer-payout'
+  spec.version     = Payoneer::VERSION
+  spec.summary     = 'A client for the Payoneer partner API'
+  spec.description = 'A client for the Payoneer partner API'
+  spec.authors     = ['Stanislav Mekhonoshin', 'Helge Rausch', 'Niklas Schmidtmer']
+  spec.files       = ['lib/payoneer.rb', 'lib/payoneer/exception.rb']
+  spec.homepage    = 'https://github.com/Mehonoshin/payoneer'
+
+  spec.files         = `git ls-files -z`.split("\x0")
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
+
+  spec.add_dependency 'nokogiri'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'webmock'
 end
 
