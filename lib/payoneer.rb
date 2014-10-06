@@ -1,8 +1,11 @@
 require 'net/http'
 require 'net/https'
-require "payoneer/exception"
+require 'payoneer/exception'
+require 'logger'
 
 class Payoneer
+  attr_writer :logger
+
   def self.new_payee_link(partner_id, username, password, member_name)
     payoneer_api = self.new(partner_id, username, password)
     payoneer_api.payee_link(member_name)
@@ -41,7 +44,7 @@ class Payoneer
   private
 
   def api_result(body)
-    puts "[debug] Payoneer Response: #{body}"
+    logger.debug "Payoneer Response: #{body}"
     if is_xml? body
       xml_response_result(body)
     else
@@ -120,6 +123,18 @@ class Payoneer
 
   def api_url
     ENV['PAYONEER_API_URL']
+  end
+
+  def self.logger
+    unless @logger
+      @logger = Logger.new($stdout)
+      @logger.formatter = Logger::Formatter.new
+    end
+    @logger
+  end
+
+  def logger
+    self.class.logger
   end
 end
 
