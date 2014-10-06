@@ -68,17 +68,17 @@ class Payoneer
 
   def failure_api_response?(body)
     xml = Nokogiri::XML.parse(body)
-    xml.xpath('//PayoneerResponse/Description').any? ||
-      xml.xpath('//GetPayeeDetails/Error').any?
+    status = xml.xpath('//*[self::Status or self::Code]')
+    status.any? && status.text != '000'
   end
 
   def api_error_description(body)
     xml = Nokogiri::XML.parse(body)
-    error = xml.xpath('//PayoneerResponse/Description')
+    error = xml.xpath('//Description')
     if error.any?
       error.text
     else
-      xml.xpath('//GetPayeeDetails/Error').text
+      xml.xpath('//Error').text
     end
   end
 
@@ -112,7 +112,7 @@ class Payoneer
       "p4" => options[:program_id],
       "p5" => options[:internal_payment_id],
       "p6" => options[:internal_payee_id],
-      "p7" => options[:amount],
+      "p7" => '%.2f' % options[:amount].to_f,
       "p8" => options[:description],
       "p9" => options[:date].strftime('%m/%d/%Y %H:%M:%S')
     }
