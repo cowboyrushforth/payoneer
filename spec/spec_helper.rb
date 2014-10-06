@@ -1,7 +1,7 @@
 ENV['PAYONEER_PARTNER_ID'] ||= 'payoneer-partner-id'
 ENV['PAYONEER_USERNAME'] ||= 'payoneer-username'
 ENV['PAYONEER_PASSWORD'] ||= 'payoneer-password'
-ENV['PAYONEER_API_URL'] ||= 'https://payoneer-api-url'
+ENV['PAYONEER_API_URL'] ||= 'https://payoneer-api-url/api'
 
 require 'vcr'
 require './lib/payoneer'
@@ -21,7 +21,8 @@ VCR.configure do |c|
   c.filter_sensitive_data('payoneer-partner-id') { ENV['PAYONEER_PARTNER_ID'] }
   c.filter_sensitive_data('payoneer-username') { ENV['PAYONEER_USERNAME'] }
   c.filter_sensitive_data('payoneer-password') { ENV['PAYONEER_PASSWORD'] }
-  c.filter_sensitive_data('payoneer-api-url') { ENV['PAYONEER_API_URL'] }
+  c.filter_sensitive_data('https://payoneer-api-url/api') { ENV['PAYONEER_API_URL'] }
   c.default_cassette_options = { match_requests_on: [:method, :uri, :body] }
+  c.debug_logger = File.open('log/vcr.log', 'w')
 end
 
