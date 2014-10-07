@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://payoneer-api-url/api?mname=PerformPayoutPayment&p1=payoneer-username&p2=payoneer-password&p3=payoneer-partner-id&p4=foo&p5=1&p6=fox&p7=20.00&p8=Fox%20stuff&p9=10/07/2014%2009:38:24
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Content-Type:
+      - text/html; charset=utf-8
+      Expires:
+      - "-1"
+      Set-Cookie:
+      - ASP.NET_SessionId=qgj3kcrhz4nkektovm22qfkk; domain=.sandbox.payoneer.com;
+        path=/; secure; HttpOnly
+      - pid=payoneer-partner-id; domain=.sandbox.payoneer.com; expires=Tue, 06-Oct-2015
+        07:38:24 GMT; path=/; secure
+      P3p:
+      - CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 07 Oct 2014 07:38:25 GMT
+      Content-Length:
+      - '237'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?><PerformPayoutPayment><Description>Processed
+        successfully</Description><PaymentID>999818393</PaymentID><Status>000</Status><PayoneerID>277393</PayoneerID></PerformPayoutPayment>
+    http_version: 
+  recorded_at: Tue, 07 Oct 2014 07:38:25 GMT
+recorded_with: VCR 2.9.3
