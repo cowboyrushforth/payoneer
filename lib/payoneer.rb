@@ -89,38 +89,37 @@ class Payoneer
   end
 
   def payee_signup_link_args
-    {
-      "mname" => "GetToken",
-      "p1" => username,
-      "p2" => password,
-      "p3" => partner_id,
-      "p4" => member_name
-    }
+    base_args.merge(
+      'mname' => 'GetToken',
+      'p4' => member_name,
+    )
   end
 
   def transfer_funds_args(options)
     date = (options[:date] || Time.now).strftime('%m/%d/%Y %H:%M:%S')
-    {
-      "mname" => "PerformPayoutPayment",
-      "p1" => username,
-      "p2" => password,
-      "p3" => partner_id,
-      "p4" => options[:program_id],
-      "p5" => options[:internal_payment_id],
-      "p6" => options[:internal_payee_id],
-      "p7" => '%.2f' % options[:amount].to_f,
-      "p8" => options[:description],
-      "p9" => date,
-    }
+    base_args.merge(
+      'mname' => 'PerformPayoutPayment',
+      'p4' => options[:program_id],
+      'p5' => options[:internal_payment_id],
+      'p6' => options[:internal_payee_id],
+      'p7' => '%.2f' % options[:amount].to_f,
+      'p8' => options[:description],
+      'p9' => date,
+    )
   end
 
   def payee_exists_args(payee_id)
+    base_args.merge(
+      'mname' => 'GetPayeeDetails',
+      'p4' => payee_id,
+    )
+  end
+
+  def base_args
     {
-      "mname" => "GetPayeeDetails",
-      "p1" => username,
-      "p2" => password,
-      "p3" => partner_id,
-      "p4" => payee_id
+      'p1' => username,
+      'p2' => password,
+      'p3' => partner_id,
     }
   end
 
