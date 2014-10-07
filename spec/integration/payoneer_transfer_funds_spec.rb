@@ -6,7 +6,7 @@ describe 'Payoneer#transfer_funds', :vcr do
       internal_payee_id: 'fox',
       amount: 20.00,
       description: 'Fox stuff',
-      date: Time.now,
+      date: Time.new(2014, 10, 7, 9, 38, 24),
     )).to eq(true)
   end
 end
