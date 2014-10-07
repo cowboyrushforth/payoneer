@@ -74,12 +74,7 @@ class Payoneer
 
   def api_error_description(body)
     xml = Nokogiri::XML.parse(body)
-    error = xml.xpath('//Description')
-    if error.any?
-      error.text
-    else
-      xml.xpath('//Error').text
-    end
+    xml.xpath('//*[self::Description or self::Error]').text
   end
 
   def get_api_call(args_hash)
