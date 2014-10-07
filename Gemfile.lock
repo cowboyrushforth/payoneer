@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    payoneer-payout (0.0.2)
+    payoneer-payout (0.0.3)
       nokogiri
 
 GEM

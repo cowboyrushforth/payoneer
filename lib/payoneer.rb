@@ -104,6 +104,7 @@ class Payoneer
   end
 
   def transfer_funds_args(options)
+    date = (options[:date] || Time.now).strftime('%m/%d/%Y %H:%M:%S')
     {
       "mname" => "PerformPayoutPayment",
       "p1" => username,
@@ -114,7 +115,7 @@ class Payoneer
       "p6" => options[:internal_payee_id],
       "p7" => '%.2f' % options[:amount].to_f,
       "p8" => options[:description],
-      "p9" => options[:date].strftime('%m/%d/%Y %H:%M:%S')
+      "p9" => date,
     }
   end
 
