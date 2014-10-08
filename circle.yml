@@ -5,3 +5,6 @@ deployment:
       - gem install geminabox
       - gem build payoneer-payout.gemspec
       - gem inabox payoneer-payout-*.gem --host $GEMINABOX_URL
+machine:
+  ruby:
+    version: 2.1.2
