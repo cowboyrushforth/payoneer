@@ -1,6 +1,7 @@
 require 'net/http'
 require 'net/https'
 require 'logger'
+require 'ostruct'
 require 'nokogiri'
 require_relative 'payoneer/exception'
 
@@ -44,6 +45,10 @@ class Payoneer
   def payee_exists?(payee_id)
     result = get_api_call(payee_exists_args(payee_id))
     api_result(result)
+  end
+
+  def payment_status(options)
+    to_struct(get_api_call(payment_status_args(options)))
   end
 
   private
@@ -115,12 +120,34 @@ class Payoneer
     )
   end
 
+  def payment_status_args(options)
+    base_args.merge(
+      'mname' => 'GetPaymentStatus',
+      'p4' => options[:internal_payee_id],
+      'p5' => options[:internal_payment_id],
+    )
+  end
+
   def base_args
     {
       'p1' => username,
       'p2' => password,
       'p3' => partner_id,
     }
+  end
+
+  def to_struct(xml)
+    OpenStruct.new(
+      Nokogiri::XML.parse(xml).xpath('/*/*').map do |node|
+        [snake_case(node.name), node.text]
+      end.to_h
+    )
+  end
+
+  def snake_case(camel_case_string)
+    camel_case_string.gsub(/[a-z][A-Z]/) do |match|
+      "#{match[0]}_#{match[1]}"
+    end.downcase
   end
 
   def api_url

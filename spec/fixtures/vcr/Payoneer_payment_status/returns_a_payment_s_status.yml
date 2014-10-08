@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://payoneer-api-url/api?mname=GetPaymentStatus&p1=payoneer-username&p2=payoneer-password&p3=payoneer-partner-id&p4=16028&p5=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Content-Type:
+      - text/html; charset=utf-8
+      Expires:
+      - "-1"
+      Set-Cookie:
+      - ASP.NET_SessionId=g2jcamlyndznrndhmmj3vn0u; domain=.sandbox.payoneer.com;
+        path=/; secure; HttpOnly
+      - pid=payoneer-partner-id; domain=.sandbox.payoneer.com; expires=Wed, 07-Oct-2015
+        08:24:54 GMT; path=/; secure
+      P3p:
+      - CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 08 Oct 2014 08:24:55 GMT
+      Content-Length:
+      - '326'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: "<?xml version='1.0' encoding='ISO-8859-1' ?><GetPaymentStatus><PaymentId>1</PaymentId><Result>000</Result><Description>OK
+        (Request accepted)</Description><PaymentDate>10/7/2014 3:38:23 AM</PaymentDate><Amount>20.00</Amount><Status>Pending
+        Payee Approval</Status><LoadDate>1/1/1970</LoadDate><Curr>USD</Curr></GetPaymentStatus>"
+    http_version: 
+  recorded_at: Wed, 08 Oct 2014 08:24:55 GMT
+recorded_with: VCR 2.9.3
