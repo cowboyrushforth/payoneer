@@ -1,9 +1,0 @@
-deployment:
-  production:
-    branch: master
-    commands:
-      - gem build payoneer-payout.gemspec
-      - curl -F package=@$(ls payoneer-payout*.gem) https://$GEMFURY_TOKEN@push.fury.io/ad2games/
-machine:
-  ruby:
-    version: 2.1.2
