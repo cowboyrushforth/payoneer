@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'payoneer/version'
 
 Gem::Specification.new do |spec|
-  spec.name        = 'payoneer-payout'
+  spec.name        = 'payoneer'
   spec.version     = Payoneer::VERSION
   spec.summary     = 'A client for the Payoneer partner API'
   spec.description = 'A client for the Payoneer partner API'
