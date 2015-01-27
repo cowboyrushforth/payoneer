@@ -11,9 +11,9 @@ class Payoneer
   class << self
     attr_writer :logger
 
-    def new_payee_link(partner_id, username, password, member_name)
+    def payee_signup_link(partner_id, username, password, member_name)
       payoneer_api = self.new(partner_id, username, password)
-      payoneer_api.payee_link(member_name)
+      payoneer_api.payee_signup_link(member_name)
     end
 
     def transfer_funds(partner_id, username, password, options)
@@ -41,10 +41,24 @@ class Payoneer
     result = get_api_call(transfer_funds_args(options))
     api_result(result)
   end
+  
+  def payee_details(payee_id)
+    result = get_api_call(payee_exists_args(payee_id))
+    api_result(result)
+  end
 
   def payee_exists?(payee_id)
     result = get_api_call(payee_exists_args(payee_id))
-    api_result(result)
+    begin
+      api_result(result)
+    rescue PayoneerException => e
+      if e.message == "Payee does not exist"
+        return false
+      else
+        raise e
+      end
+    end
+    return true
   end
 
   def payment_status(options)
@@ -68,7 +82,7 @@ class Payoneer
 
   def xml_response_result(body)
     raise(PayoneerException, api_error_description(body)) if failure_api_response?(body)
-    true
+    to_struct(body)
   end
 
   def failure_api_response?(body)
