@@ -3,6 +3,7 @@ require 'net/https'
 require 'logger'
 require 'ostruct'
 require 'nokogiri'
+require 'active_support'
 require_relative 'payoneer/exception'
 
 class Payoneer
@@ -44,7 +45,11 @@ class Payoneer
   
   def payee_details(payee_id)
     result = get_api_call(payee_exists_args(payee_id))
-    api_result(result)
+    details = api_result(result)
+    if details.has_key?("GetPayeeDetails")
+      return details["GetPayeeDetails"]
+    end
+    false
   end
 
   def payee_exists?(payee_id)
@@ -151,11 +156,7 @@ class Payoneer
   end
 
   def to_struct(xml)
-    OpenStruct.new(
-      Nokogiri::XML.parse(xml).xpath('/*/*').map do |node|
-        [snake_case(node.name), node.text]
-      end.to_h
-    )
+    Hash.from_xml(xml)
   end
 
   def snake_case(camel_case_string)
